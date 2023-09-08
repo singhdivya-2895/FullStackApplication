@@ -31,14 +31,14 @@ namespace API.Controllers
         public async Task<ActionResult> CreateActivities (Activity activity)
         {
             await _mediator.Send(new CreateActivityCommand { Activity = activity });
-            return Ok();
+            return Accepted();
         }
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult> UpdateActivities(Guid id,Activity activity)
         {
             activity.Id = id;
-            await _mediator.Send(new UpdateActivityCommand { Activity = activity });
-            return Ok(); 
+            await _mediator.Send(new Application.Features.Edit.UpdateActivityCommand { Activity = activity });
+            return Accepted(); 
         }
 
     }

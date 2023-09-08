@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Features.Edit
 {
-    public class UpdateActivityCommandHandler : IRequestHandler<UpdateActivityCommandHandler>
+    public class UpdateActivityCommandHandler : IRequestHandler<UpdateActivityCommand>
     {
         private readonly DataContext _context;
 
@@ -12,9 +12,13 @@ namespace Application.Features.Edit
         {
             _context = context;
         }
-        public Task Handle(UpdateActivityCommandHandler request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateActivityCommand request, CancellationToken cancellationToken)
         {
-            var activity = _context.Activities.FindAsync(request.Activity.Id);
+            var activity = await _context.Activities.FindAsync(request.Activity.Id);
+           
+            activity.Title = request.Activity.Title ?? activity.Title;
+           
+            await _context.SaveChangesAsync();
         }
     }
 }
