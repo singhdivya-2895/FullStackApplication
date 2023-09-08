@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Application.Features.Create;
+using Application.Features.Edit;
 
 namespace API.Controllers
 {
@@ -31,6 +32,13 @@ namespace API.Controllers
         {
             await _mediator.Send(new CreateActivityCommand { Activity = activity });
             return Ok();
+        }
+        [HttpPut]
+        public async Task<ActionResult> UpdateActivities(Guid id,Activity activity)
+        {
+            activity.Id = id;
+            await _mediator.Send(new UpdateActivityCommand { Activity = activity });
+            return Ok(); 
         }
 
     }

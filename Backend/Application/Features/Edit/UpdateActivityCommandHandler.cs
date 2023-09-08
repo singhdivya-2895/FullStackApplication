@@ -14,7 +14,7 @@ namespace Application.Features.Edit
         }
         public Task Handle(UpdateActivityCommandHandler request, CancellationToken cancellationToken)
         {
-            
+            var activity = _context.Activities.FindAsync(request.Activity.Id);
         }
     }
 }
