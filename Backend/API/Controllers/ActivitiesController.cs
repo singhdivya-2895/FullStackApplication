@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Application.Features.Create;
 using Application.Features.Edit;
+using Application.Features.Delete;
 
 namespace API.Controllers
 {
@@ -34,12 +35,18 @@ namespace API.Controllers
             return Accepted();
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateActivities(Guid id,Activity activity)
+        public async Task<ActionResult> UpdateActivities(Guid id, Activity activity)
         {
             activity.Id = id;
-            await _mediator.Send(new Application.Features.Edit.UpdateActivityCommand { Activity = activity });
+            await _mediator.Send(new UpdateActivityCommand { Activity = activity });
             return Accepted(); 
         }
-
+        [HttpDelete("{id}")]
+         
+        public async Task<ActionResult> DeleteActivities(Guid id)
+        {
+            await _mediator.Send(new DeleteCommand { Id = id });
+            return Ok();
+        }
     }
 }
