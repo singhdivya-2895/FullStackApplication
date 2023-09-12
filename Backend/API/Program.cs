@@ -1,5 +1,8 @@
 using Data;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
+using Microsoft.AspNetCore.Hosting;
+using Application.Features.GetAll;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +24,10 @@ builder.Services.AddCors(opt =>
        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
     });
 });
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetAllActivitiesQuery>());
+builder.Services.AddAutoMapper(typeof(Application.Automapper.Mapperprofile));
 
- 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
