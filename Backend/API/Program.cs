@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Application.Features.GetAll;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using Application.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +29,8 @@ builder.Services.AddCors(opt =>
 });
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetAllActivitiesQuery>());
 builder.Services.AddAutoMapper(typeof(Application.Automapper.Mapperprofile));
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<MyValidation>();
 
 
 var app = builder.Build();
