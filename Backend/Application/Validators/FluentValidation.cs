@@ -26,7 +26,6 @@ namespace Application.Validators
           RuleFor(x => x.Date)
                 .NotEmpty()
                 .WithMessage("Kab jaana hai");
-
         }
     }
 }

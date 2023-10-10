@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using Application.Core;
+using Data;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Features.GetAll
-{    
-    public class GetAllActivitiesQueryHandler : IRequestHandler<GetAllActivitiesQuery, List<Activity>>
+{
+    public class GetAllActivitiesQueryHandler : IRequestHandler<GetAllActivitiesQuery, Result<List<Activity>>>
     {
         private readonly DataContext _context;
 
@@ -18,9 +19,9 @@ namespace Application.Features.GetAll
         {
             _context = context;
         }
-        public async Task<List<Activity>> Handle(GetAllActivitiesQuery request, CancellationToken cancellationToken)
+        public async Task<Result<List<Activity>>> Handle(GetAllActivitiesQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Activities.ToListAsync();
+            return Result<List<Activity>>.Success(await _context.Activities.ToListAsync());
         }
     }
 }

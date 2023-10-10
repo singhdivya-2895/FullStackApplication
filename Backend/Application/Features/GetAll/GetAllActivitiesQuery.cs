@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Core;
+using Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,5 +9,5 @@ using System.Threading.Tasks;
 
 namespace Application.Features.GetAll
 {
-    public class GetAllActivitiesQuery : IRequest<List<Activity>> { }
+    public class GetAllActivitiesQuery : IRequest<Result<List<Activity>>> { }
 }

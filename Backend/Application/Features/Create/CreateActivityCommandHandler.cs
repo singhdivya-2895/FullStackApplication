@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using Application.Core;
+using Data;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Create
 {
-    public class CreateActivityCommandHandler : IRequestHandler<CreateActivityCommand>
+    public class CreateActivityCommandHandler : IRequestHandler<CreateActivityCommand, Result<Unit>>
     {
         private readonly DataContext _context;
 
@@ -17,12 +18,12 @@ namespace Application.Features.Create
             _context = context;
         }
 
-        public async Task Handle(CreateActivityCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Unit>> Handle(CreateActivityCommand request, CancellationToken cancellationToken)
         {
             _context.Activities.Add(request.Activity);
-            await _context.SaveChangesAsync();
-           
+            var result =  await _context.SaveChangesAsync() > 0;
+            if (!result) return Result<Unit>.Failure("Failed to create activity");
+            return Result<Unit>.Success(Unit.Value);
         }
-
     }
 }

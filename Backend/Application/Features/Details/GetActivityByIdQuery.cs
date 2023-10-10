@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Core;
+using Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Details
 {
-    public class GetActivityByIdQuery: IRequest<Activity>
+    public class GetActivityByIdQuery: IRequest<Result<Activity>>
     {
         public Guid Id { get; set; }
     }
