@@ -24,12 +24,12 @@ namespace Application.Features.Delete
         public async Task<Result<Unit>> Handle(DeleteCommand request, CancellationToken cancellationToken)
         {
              var activity = await _context.Activities.FindAsync(request.Id);
-            if (activity == null) return null;
+             if (activity == null) return null;
              _context.Remove(activity);
             var result = await _context.SaveChangesAsync();
             if (result == null) 
             {
-                return Result<Unit>.Failure("Failed to delete the activity");
+                 return Result<Unit>.Failure("Failed to delete the activity");
             }
             return Result<Unit>.Success(Unit.Value);
         }
