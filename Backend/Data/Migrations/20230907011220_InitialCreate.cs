@@ -28,7 +28,7 @@ namespace Data.Migrations
                     table.PrimaryKey("PK_Activities", x => x.Id);
                 });
         }
-
+         
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
