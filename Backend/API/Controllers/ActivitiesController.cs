@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Application.Features.Create;
 using Application.Features.Edit;
 using Application.Features.Delete;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -22,7 +23,7 @@ namespace API.Controllers
         {
             return HandleResult(await _mediator.Send(new GetAllActivitiesQuery()));
         }
-
+        [Authorize]
         [HttpGet("{id}")]//api/activities//fvjhghgd
         public async Task<IActionResult> GetActivitiesById(Guid id)
         {
