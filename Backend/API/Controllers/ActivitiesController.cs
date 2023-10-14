@@ -23,7 +23,7 @@ namespace API.Controllers
         {
             return HandleResult(await _mediator.Send(new GetAllActivitiesQuery()));
         }
-        [Authorize]
+        
         [HttpGet("{id}")]//api/activities//fvjhghgd
         public async Task<IActionResult> GetActivitiesById(Guid id)
         {

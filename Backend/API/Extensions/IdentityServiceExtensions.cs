@@ -18,22 +18,22 @@ namespace API.Extensions
             })
                 .AddEntityFrameworkStores<DataContext>();
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("CryBbr6hxjTDybx4sGtLQZCAu3kpLzYRqY9TFPVcJcbbSE8GGqS5ghX2WwnbLMwd"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(opt =>
-                {
-                    opt.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = key,
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                    };
-                });
-                
+                  .AddJwtBearer(opt =>
+                  {
+                      opt.TokenValidationParameters = new TokenValidationParameters
+                      {
+                          ValidateIssuerSigningKey = true,
+                          IssuerSigningKey = key,
+                          ValidateIssuer = false,
+                          ValidateAudience = false,
+                      };
+                  });
+
             services.AddScoped<TokenService>();
-             
+
             return services;
         }
     }
